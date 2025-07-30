@@ -1,103 +1,85 @@
-/*――――――――――――――――――――――
-  ベース設定
-――――――――――――――――――――――*/
-html, body {
+/* ──────── グローバル（600px以上） ──────── */
+body {
   margin: 0;
-  padding: 0;
-  background-color: #f0f4f8;
-  color: #333;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  line-height: 1.6;
+  padding: 20px;
+  font-family: sans-serif;
+  /* display:flex, justify-content:center はメディアクエリ内に移動 */
+}
+main {
+  /* 通常時は幅いっぱいに */
+  width: 100%;
+  max-width: none;     /* 必要なら上限を外す */
+  text-align: left;    /* テキストは左揃え */
 }
 
-h1, h2 {
-  margin: 0;
-  color: #34495e;
+/* ヘッダー */
+header h1 {
+  margin-bottom: 1em;
+  text-align: left;
 }
 
-h1 {
-  font-size: 2em;
-  margin-bottom: 0.5em;
+/* セレクト群（横並び）はそのまま残す */
+.select-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  margin-bottom: 1.5em;
 }
-
-h2 {
-  font-size: 1.5em;
-  margin: 1.5em 0 0.5em;
-  border-bottom: 2px solid #3498db;
-  padding-bottom: 0.3em;
+.select-block { 
+  flex: 1 1 auto;
+  min-width: 120px;
+  text-align: center;
 }
-
-/*――――――――――――――――――――――
-  選択ブロック
-――――――――――――――――――――――*/
-.select-block {
-  display: inline-block;
-  vertical-align: top;
-  margin-right: 20px;
-  margin-bottom: 20px;
-}
-
 .select-block select {
-  display: block;
-  width: 180px;
-  padding: 8px 10px;
-  font-size: 1em;
-  color: #333;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-  outline: none;
-  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.select-block select:focus {
-  border-color: #3498db;
-}
-
-.char-info {
-  margin-top: 6px;
-  font-size: 0.9em;
-  color: #555;
-}
-
-.char-info div {
-  margin: 2px 0;
-}
-
-/*――――――――――――――――――――――
-  結果リスト
-――――――――――――――――――――――*/
+/* 結果リスト */
 #resultList {
   list-style: none;
   padding: 0;
   margin: 0;
+  text-align: left;
 }
 
-#resultList li {
-  background-color: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  padding: 10px 12px;
-  margin-bottom: 10px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-  transition: background-color 0.2s;
-}
-
-#resultList li:hover {
-  background-color: #fafafa;
-}
-
-/*――――――――――――――――――――――
-  レスポンシブ
-――――――――――――――――――――――*/
+/* ──────── スマホ用（600px以下） ──────── */
 @media (max-width: 600px) {
-  .select-block {
-    display: block;
+  /* 画面幅600px以下で全体を中央寄せ */
+  body {
+    display: flex;
+    justify-content: center;
+  }
+  main {
     width: 100%;
-    margin-right: 0;
+    max-width: 480px;     /* 任意の最大幅 */
+    text-align: center;   /* 見出しなども中央揃えに */
+  }
+  header h1 {
+    text-align: center;
+  }
+
+  /* セレクト群を縦並びに */
+  .select-container {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+  }
+  .select-block {
+    width: 100%;
+    max-width: 320px;     /* 任意 */
+    text-align: center;
   }
   .select-block select {
     width: 100%;
+  }
+
+  /* 結果リストは中央幅の中で左揃え */
+  #resultList {
+    text-align: left;
+    margin: 0 auto;
   }
 }
