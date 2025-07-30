@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <!-- モバイル対応 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>キャラクター強化チェッカー</title>
+  <!-- 既存CSS -->
+  <link rel="stylesheet" href="style.css">
+  <!-- 横並び用の上書きスタイル -->
+  <style>
+    /* select を包むコンテナをフレックスに */
+    .select-container {
+      display: flex;
+      gap: 20px;           /* 各ブロックの間隔 */
+      flex-wrap: nowrap;   /* 折り返しを禁止（常に１行） */
+      align-items: flex-start;
+      margin-bottom: 1em;
+    }
+    /* 各ブロックの基本幅 */
+    .select-block {
+      flex: 1 1 auto;      /* 必要に応じて縮小・拡大 */
+      min-width: 160px;     /* 小さくなりすぎない幅 */
+    }
+    /* 既存のメディアクエリで block になってしまう場合への強制上書き */
+    @media (max-width: 600px) {
+      .select-block {
+        display: inline-block !important;
+        width: auto         !important;
+        margin-right: 0     !important;
+      }
+      .select-block select {
+        width: auto         !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>キャラクター強化チェッカー</h1>
+  </header>
+
+  <main>
+    <section>
+      <p>強化対象のキャラクターを選択してください：</p>
+      <div class="select-container">
+        <span class="select-block">
+          <select id="charSelect1">
+            <option value="">──選択してください──</option>
+          </select>
+          <div id="charInfo1" class="char-info"></div>
+        </span>
+        <span class="select-block">
+          <select id="charSelect2">
+            <option value="">──選択してください──</option>
+          </select>
+          <div id="charInfo2" class="char-info"></div>
+        </span>
+        <span class="select-block">
+          <select id="charSelect3">
+            <option value="">──選択してください──</option>
+          </select>
+          <div id="charInfo3" class="char-info"></div>
+        </span>
+        <span class="select-block">
+          <select id="charSelect4">
+            <option value="">──選択してください──</option>
+          </select>
+          <div id="charInfo4" class="char-info"></div>
+        </span>
+      </div>
+    </section>
+
+    <section>
+      <h2>強化可能キャラクター</h2>
+      <ul id="resultList"></ul>
+    </section>
+  </main>
+
+  <!-- CSVパース用ライブラリ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+  <!-- アプリ本体 -->
+  <script src="app.js"></script>
+</body>
+</html>
