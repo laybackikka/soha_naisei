@@ -1,85 +1,177 @@
-/* ──────── グローバル（600px以上） ──────── */
-body {
-  margin: 0;
-  padding: 20px;
-  font-family: sans-serif;
-  /* display:flex, justify-content:center はメディアクエリ内に移動 */
-}
-main {
-  /* 通常時は幅いっぱいに */
-  width: 100%;
-  max-width: none;     /* 必要なら上限を外す */
-  text-align: left;    /* テキストは左揃え */
-}
-
-/* ヘッダー */
-header h1 {
-  margin-bottom: 1em;
-  text-align: left;
+/*====================================
+  共通設定（カラーパレット・ベース）
+====================================*/
+:root {
+  --bg-color:   #f5f7fa;  /* ページ背景 */
+  --text-color: #333;     /* 基本文字色 */
+  --primary:    #005fcc;  /* アクセント色 */
+  --secondary:  #0099ff;  /* ヘバー／リンク色 */
+  --card-bg:    #fff;     /* カード背景 */
+  --card-shadow:rgba(0,0,0,0.05);
+  --radius:     8px;
+  --gap:        1em;
 }
 
-/* セレクト群（横並び）はそのまま残す */
-.select-container {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-wrap: nowrap;
-  margin-bottom: 1.5em;
-}
-.select-block { 
-  flex: 1 1 auto;
-  min-width: 120px;
-  text-align: center;
-}
-.select-block select {
-  width: 100%;
+* {
   box-sizing: border-box;
 }
 
-/* 結果リスト */
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  line-height: 1.6;
+}
+
+/*====================================
+  メインラッパー／ヘッダー
+====================================*/
+main {
+  margin: 0 auto;
+  max-width: 960px;
+}
+
+header h1 {
+  margin-bottom: var(--gap);
+  font-size: 2.5rem;
+  color: var(--primary);
+  text-align: left;
+  line-height: 1.2;
+}
+
+/*====================================
+  セレクト群
+====================================*/
+.select-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5em;
+  margin-bottom: 2em;
+}
+
+.select-block {
+  flex: 1 1 200px;
+  min-width: 150px;
+}
+
+.select-block label {
+  display: block;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+.select-block select {
+  width: 100%;
+  padding: 0.5em 0.8em;
+  border: 1px solid #ccc;
+  border-radius: var(--radius);
+  background-color: #fff;
+  font-size: 1rem;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.select-block select:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
+/*====================================
+  結果リスト → カードレイアウト化
+====================================*/
 #resultList {
   list-style: none;
   padding: 0;
   margin: 0;
-  text-align: left;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5em;
 }
 
-/* ──────── スマホ用（600px以下） ──────── */
+#resultList li {
+  background-color: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 6px var(--card-shadow);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#resultList li:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px var(--card-shadow);
+}
+
+#resultList li a {
+  display: block;
+  padding: 1em;
+  color: inherit;
+  text-decoration: none;
+}
+
+#resultList li h2 {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-size: 1.2rem;
+  color: var(--primary);
+}
+
+#resultList li p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/*====================================
+  PC（600px以上）用 微調整
+====================================*/
+@media (min-width: 600px) {
+  body {
+    display: block; /* デフォルト */
+  }
+  main {
+    /* 幅いっぱいにしても max-width で抑える */
+    width: 100%;
+  }
+  #resultList {
+    /* カードの横並び感を強調 */
+    grid-gap: 2em;
+  }
+}
+
+/*====================================
+  SP（600px以下）用 調整
+====================================*/
 @media (max-width: 600px) {
-  /* 画面幅600px以下で全体を中央寄せ */
   body {
     display: flex;
     justify-content: center;
+    padding: 10px;
   }
   main {
     width: 100%;
-    max-width: 480px;     /* 任意の最大幅 */
-    text-align: center;   /* 見出しなども中央揃えに */
+    max-width: 480px;
+    text-align: center;
   }
   header h1 {
+    font-size: 2rem;
     text-align: center;
   }
 
-  /* セレクト群を縦並びに */
   .select-container {
     flex-direction: column;
-    gap: 12px;
-    align-items: center;
-    justify-content: center;
+    gap: 1em;
+    align-items: stretch;
   }
   .select-block {
     width: 100%;
-    max-width: 320px;     /* 任意 */
-    text-align: center;
-  }
-  .select-block select {
-    width: 100%;
   }
 
-  /* 結果リストは中央幅の中で左揃え */
+  /* カードは1列表示 */
   #resultList {
-    text-align: left;
-    margin: 0 auto;
+    grid-template-columns: 1fr;
+    gap: 1em;
   }
 }
