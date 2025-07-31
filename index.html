@@ -5,54 +5,39 @@
   <!-- モバイル対応 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>争覇内政チェッカー</title>
+  <!-- 既存のCSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- 上書き用＆ボタン追加のスタイル -->
   <style>
-    /* ────────────── ベースリセット ────────────── */
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-    }
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
-
-    /* ────────────── ページ全体のレイアウト ────────────── */
-    body {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      padding: 20px;
-      font-family: sans-serif;
-      line-height: 1.6;
-      background: #f5f7fa;
-      color: #333;
-    }
-    main {
-      flex: 1;                /* フッターを下に固定するための伸縮領域 */
-      max-width: 960px;
-      width: 100%;
-      margin: 0 auto;
-    }
-
-    /* ────────────── ヘッダー ────────────── */
+    /* ヘッダー内を左右に分けてボタンを並べる */
     header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;        /* ブラウザ幅が狭くなったら折り返しOK */
+      align-items: center;
+      flex-wrap: wrap;
       margin-bottom: 1em;
     }
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-      color: #005fcc;
+
+    /* ボタン共通 */
+    .header-buttons button {
+      padding: 0.4em 0.8em;
+      font-size: 0.9rem;
+      background: #005fcc;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .header-buttons button:hover {
+      background: #0041a3;
     }
 
-    /* ────────────── セレクト群 ────────────── */
+    /* select-container は従来どおり横並び */
     .select-container {
       display: flex;
       gap: 20px;
-      flex-wrap: nowrap;      /* デフォルトで横並び */
+      flex-wrap: nowrap;
       align-items: flex-start;
       margin-bottom: 1.5em;
     }
@@ -60,63 +45,21 @@
       flex: 1 1 auto;
       min-width: 160px;
     }
-    .select-block select {
-      width: 100%;
-      padding: 0.4em 0.6em;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 1rem;
-    }
-    .char-info {
-      margin-top: 0.4em;
-      font-size: 0.9rem;
-      color: #555;
-    }
 
-    /* ────────────── 結果リスト ────────────── */
-    #resultList {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
+    /* 結果リスト内の li を flex 化、チェックボックスの位置調整 */
     #resultList li {
-      margin-bottom: 0.8em;
-      background: #fff;
-      padding: 0.8em;
-      border-radius: 6px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-      transition: transform .2s, box-shadow .2s;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5em;
     }
-    #resultList li:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    #resultList li h2 {
-      margin: 0 0 0.4em;
-      font-size: 1.1rem;
-      color: #005fcc;
-    }
-    #resultList li p {
-      margin: 0;
-      font-size: 0.95rem;
-      color: #555;
+    #resultList li input[type="checkbox"] {
+      margin-top: 0.3em;
     }
 
-    /* ────────────── フッター ────────────── */
-    footer {
-      text-align: center;
-      padding: 1em 0;
-      font-size: 0.9rem;
-      color: #666;
-      border-top: 1px solid #ddd;
-      background: #ececec;
-    }
-
-    /* ────────────── モバイル対応 (600px以下) ────────────── */
+    /* モバイル（600px以下）の微調整 */
     @media (max-width: 600px) {
       header {
         flex-direction: column;
-        align-items: center;
         text-align: center;
       }
       header h1 {
@@ -127,15 +70,18 @@
         align-items: stretch;
         gap: 1em;
       }
-      .select-block {
-        min-width: 0;
-      }
+      .select-block { min-width: 0; }
     }
   </style>
 </head>
 <body>
   <header>
     <h1>争覇内政チェッカー</h1>
+    <div class="header-buttons">
+      <!-- 今回追加した2つのボタン -->
+      <button id="hideBtn">育成済み武将を非表示</button>
+      <button id="resetBtn">非表示をリセット</button>
+    </div>
   </header>
 
   <main>
@@ -179,7 +125,7 @@
 
   <!-- CSVパース用ライブラリ -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-  <!-- アプリ本体 -->
+  <!-- アプリ本体（以下） -->
   <script src="app.js"></script>
 </body>
 </html>
