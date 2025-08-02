@@ -1,131 +1,63 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <!-- モバイル対応 -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>争覇内政チェッカー</title>
-  <!-- 既存のCSS -->
-  <link rel="stylesheet" href="style.css">
-
-  <!-- 上書き用＆ボタン追加のスタイル -->
-  <style>
-    /* ヘッダー内を左右に分けてボタンを並べる */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      margin-bottom: 1em;
-    }
-
-    /* ボタン共通 */
-    .header-buttons button {
-      padding: 0.4em 0.8em;
-      font-size: 0.9rem;
-      background: #005fcc;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .header-buttons button:hover {
-      background: #0041a3;
-    }
-
-    /* select-container は従来どおり横並び */
-    .select-container {
-      display: flex;
-      gap: 20px;
-      flex-wrap: nowrap;
-      align-items: flex-start;
-      margin-bottom: 1.5em;
-    }
-    .select-block {
-      flex: 1 1 auto;
-      min-width: 160px;
-    }
-
-    /* 結果リスト内の li を flex 化、チェックボックスの位置調整 */
-    #resultList li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5em;
-    }
-    #resultList li input[type="checkbox"] {
-      margin-top: 0.3em;
-    }
-
-    /* モバイル（600px以下）の微調整 */
-    @media (max-width: 600px) {
-      header {
-        flex-direction: column;
-        text-align: center;
-      }
-      header h1 {
-        margin-bottom: 0.8em;
-      }
-      .select-container {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 1em;
-      }
-      .select-block { min-width: 0; }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <h1>争覇内政チェッカー</h1>
-    <div class="header-buttons">
-      <!-- 今回追加した2つのボタン -->
-      <button id="hideBtn">育成済み武将を非表示</button>
-      <button id="resetBtn">非表示をリセット</button>
-    </div>
-  </header>
-
-  <main>
-    <section>
-      <p>編成した武将を選択してください：</p>
-      <div class="select-container">
-        <div class="select-block">
-          <select id="charSelect1">
-            <option value="">──選択してください──</option>
-          </select>
-          <div id="charInfo1" class="char-info"></div>
-        </div>
-        <div class="select-block">
-          <select id="charSelect2">
-            <option value="">──選択してください──</option>
-          </select>
-          <div id="charInfo2" class="char-info"></div>
-        </div>
-        <div class="select-block">
-          <select id="charSelect3">
-            <option value="">──選択してください──</option>
-          </select>
-          <div id="charInfo3" class="char-info"></div>
-        </div>
-        <div class="select-block">
-          <select id="charSelect4">
-            <option value="">──選択してください──</option>
-          </select>
-          <div id="charInfo4" class="char-info"></div>
-        </div>
+  <div class="container">
+    <header>
+      <h1>争覇内政チェッカー</h1>
+      <div class="header-buttons">
+        <button id="hideBtn">育成済み武将を非表示</button>
+        <button id="resetBtn">非表示をリセット</button>
       </div>
-    </section>
+    </header>
 
-    <section>
-      <h2>対象内政スキル持ち武将</h2>
-      <ul id="resultList"></ul>
-    </section>
-  </main>
+    <main>
+      <section>
+        <p>編成した武将を選択してください：</p>
+        <div class="select-container">
+          <div class="select-block">
+            <select id="charSelect1">
+              <option value="">──選択してください──</option>
+            </select>
+            <div id="charInfo1" class="char-info"></div>
+          </div>
+          <div class="select-block">
+            <select id="charSelect2">
+              <option value="">──選択してください──</option>
+            </select>
+            <div id="charInfo2" class="char-info"></div>
+          </div>
+          <div class="select-block">
+            <select id="charSelect3">
+              <option value="">──選択してください──</option>
+            </select>
+            <div id="charInfo3" class="char-info"></div>
+          </div>
+          <div class="select-block">
+            <select id="charSelect4">
+              <option value="">──選択してください──</option>
+            </select>
+            <div id="charInfo4" class="char-info"></div>
+          </div>
+        </div>
+      </section>
 
-  <footer>© 麗獏一家 Layback Family room585</footer>
+      <section>
+        <h2>対象内政スキル持ち武将</h2>
+        <ul id="resultList"></ul>
+      </section>
+    </main>
 
-  <!-- CSVパース用ライブラリ -->
+    <footer>© 麗獏一家 Layback Family room585</footer>
+  </div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-  <!-- アプリ本体（以下） -->
   <script src="app.js"></script>
 </body>
 </html>
