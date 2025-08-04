@@ -12,9 +12,41 @@
   --footer-padding: 1.5em;
   --font-family:    'Helvetica Neue', sans-serif;
 }
- 
+
 /*====================================
-  ベース
+  レイアウト調整（footerを押し下げる）
+====================================*/
+/* htmlに高さを持たせておく */
+html {
+  height: 100%;
+}
+/* bodyを縦方向のflexコンテナにし、
+   最低でも画面全体(100vh)を占めるようにする */
+body {
+  margin:           0;
+  padding:          0 1em;
+  font-family:      var(--font-family);
+  background-color: #f9f9f9;
+  color:            #333;
+
+  display:          flex;
+  flex-direction:   column;
+  min-height:       100vh;
+}
+/* .containerはbody直下のラッパーなので
+   残りの領域を全て使い、かつ内部も縦並び */
+.container {
+  flex:           1;
+  display:        flex;
+  flex-direction: column;
+}
+/* header/main/footer のうち mainだけが伸びる */
+.container > main {
+  flex: 1;
+}
+
+/*====================================
+  リセット
 ====================================*/
 *,
 *::before,
@@ -23,17 +55,7 @@
   margin:    0;
   padding:   0;
 }
-html, body {
-  height: 100%;
-}
-body {
-  font-family:      var(--font-family);
-  margin:           0;
-  padding:          0 1em;
-  background-color: #f9f9f9;
-  color:            #333;
-}
- 
+
 /*====================================
   ヘッダー
 ====================================*/
@@ -66,7 +88,7 @@ header h1 {
 .header-buttons button:hover {
   background-color: var(--primary-hover);
 }
- 
+
 /*====================================
   セレクト群
 ====================================*/
@@ -100,7 +122,7 @@ header h1 {
   border-color: var(--primary);
   outline:      none;
 }
- 
+
 /*─────────────────────────*
   PCではブラウザネイティブの矢印に戻す
 *─────────────────────────*/
@@ -109,10 +131,10 @@ header h1 {
     appearance:        auto !important;
    -webkit-appearance: auto !important;
    -moz-appearance:    auto !important;
-    background-image:  none !important; /* スマホ用矢印アイコンがあれば消す */
+    background-image:  none !important;
   }
 }
- 
+
 /*====================================
   結果リスト
 ====================================*/
@@ -151,7 +173,7 @@ header h1 {
   font-size:  0.95rem;
   color:      #444;
 }
- 
+
 /*====================================
   フッター
 ====================================*/
@@ -161,9 +183,9 @@ footer {
   text-align:       center;
   padding:          var(--footer-padding);
   font-size:        0.9rem;
-  margin-top:       2em;
+  margin-top:       2em;  /* 任意で余白調整 */
 }
- 
+
 /*====================================
   モバイル対応
 ====================================*/
